@@ -75,7 +75,7 @@ Il constitue un élément **critique** du système d’information.
 - Appliquer des règles utilisateurs et machines
 
 ### 🔹 Exemples de GPO mises en place
-- Politique de mot de passe renforcée
+- Politique de mot de passe renforcée + durée de vie
 - Verrouillage automatique de session
 
 ---
