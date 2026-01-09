@@ -1,129 +1,176 @@
-# Projet
-🎯 Objectif du lab
-Ce lab d’infrastructure réseau a pour objectif de simuler un environnement d’entreprise réaliste, incluant :
-un réseau interne sécurisé,
+# 🏗️ Lab d’Infrastructure Réseau – Environnement PME
 
-un accès Internet contrôlé,
+## 📌 Introduction
+Ce projet consiste en la mise en place d’un **lab d’infrastructure réseau simulant un environnement d’entreprise réaliste**, proche des besoins d’une PME.  
+Il couvre la **sécurité réseau**, la **gestion centralisée**, la **virtualisation**, le **stockage**, la **supervision**, la **sauvegarde** et l’**accès distant sécurisé**.
 
-un accès distant sécurisé via VPN,
+L’objectif principal est de **monter en compétence sur une infrastructure complète**, cohérente et opérationnelle, intégrant des technologies largement utilisées en entreprise.
 
-des services centraux (AD, DNS, stockage, supervision, sauvegarde).
+---
 
-L’objectif est de monter en compétence sur une infrastructure complète, proche des besoins réels d’une PME.
+## 🎯 Objectifs du lab
+- Simuler un réseau interne sécurisé
+- Contrôler l’accès Internet via un pare-feu
+- Mettre en place un accès distant sécurisé via VPN
+- Déployer des services centraux :
+  - Active Directory & DNS
+  - Stockage réseau
+  - Supervision
+  - Sauvegarde
+- Approcher une architecture réelle de PME
 
-🌐 Vue globale de l’architecture
-L’infrastructure est organisée autour de trois zones réseau principales :
-Réseau interne (LAN)
- → héberge les serveurs, services critiques et machines internes.
+---
 
-Accès distant sécurisé (VPN)
- → permet aux utilisateurs distants d’accéder aux ressources internes (NAS, services AD).
+## 🌐 Vue globale de l’architecture
+L’infrastructure est organisée autour de **trois zones réseau principales** :
 
-Accès Internet
- → contrôlé et filtré via un pare-feu central (pfSense).
+- **Réseau interne (LAN)**  
+  Héberge les serveurs, services critiques et postes clients internes.
 
-Le pare-feu pfSense est le point central de l’architecture : sécurité, routage, NAT et VPN.
+- **Accès distant sécurisé (VPN)**  
+  Permet aux utilisateurs distants d’accéder aux ressources internes (NAS, services AD).
 
-🧱 Équipements et rôles
-🔥 pfSense
-Pare-feu principal
+- **Accès Internet**  
+  Contrôlé, filtré et sécurisé via un pare-feu central **pfSense**.
 
-Routage inter-réseaux
+👉 **pfSense** est le point central de l’architecture : sécurité, routage, NAT et VPN.
 
-NAT vers Internet
+---
 
-Passerelle par défaut
+## 🧱 Équipements et rôles
 
-VPN (Tailscale)
+### 🔥 pfSense
+- Pare-feu principal
+- Routage inter-réseaux
+- NAT vers Internet
+- Passerelle par défaut
+- VPN (Tailscale)
+- Point central de sécurité
 
-Point central de sécurité
+### 🖥️ Windows Server 2022
+**Serveur 1 – Contrôleur de domaine**
+- Active Directory
+- DNS
+- Gestion centralisée des utilisateurs et machines
 
-🖥️ Windows Server 2022
-Serveur 1 – Contrôleur de domaine
-Active Directory
+**Serveur 2 – Serveur membre**
+- Intégré au domaine AD
+- Plateforme de tests
 
-DNS
+### 🗄️ TrueNAS
+- Stockage réseau centralisé
+- Partages de fichiers internes
+- Accès sécurisé via VPN
 
-Gestion centralisée des utilisateurs et machines
+### 📊 Serveur de supervision (Zabbix)
+- Monitoring des serveurs et équipements réseau
+- Surveillance des performances
+- Alertes en cas d’incident
 
-Serveur 2 – Serveur membre
-Plateforme de tests
+### 💾 Serveur de sauvegarde
+- Sauvegardes via `rsync`
+- Protection des données critiques
+- Possibilité de restauration
 
-Intégration au domaine AD
+### 🧪 Proxmox
+- Hyperviseur
+- Hébergement des machines virtuelles
+- Gestion centralisée des ressources
 
-🗄️ TrueNAS
-Stockage réseau centralisé
+### 📱 Client mobile
+- Accès réseau uniquement via VPN
+- Simulation d’un utilisateur distant
 
-Partages de fichiers internes
+---
 
-Accès sécurisé via VPN
+## 📡 Plan d’adressage IP
 
-📊 Serveur de supervision (Zabbix)
-Monitoring des serveurs et équipements réseau
+### Réseau interne : `192.168.247.0/24`
 
-Surveillance de la disponibilité et des performances
+| Équipement                         | Adresse IP        |
+|----------------------------------|-------------------|
+| pfSense (passerelle)             | 192.168.247.5     |
+| TrueNAS                          | 192.168.247.6     |
+| Contrôleur de domaine / DNS      | 192.168.247.10    |
+| Serveur de sauvegarde            | 192.168.247.11    |
+| Serveur Zabbix                   | 192.168.247.12    |
+| Postes clients                   | DHCP              |
 
-Alertes en cas d’incident
+🔒 Les équipements critiques utilisent des **IP statiques**, les postes clients sont configurés en **DHCP**.
 
-💾 Serveur de sauvegarde
-Sauvegardes via rsync
+---
 
-Protection des données critiques
+## 🛠️ Services réseau
 
-Possibilité de restauration
+- **DHCP**  
+  Attribution automatique des adresses IP aux clients
 
-🧪 Proxmox
-Hyperviseur
+- **DNS**  
+  Résolution de noms centralisée via le contrôleur de domaine
 
-Hébergement des machines virtuelles
+- **Active Directory**  
+  Gestion des utilisateurs, groupes, machines et stratégies de sécurité
 
-Gestion centralisée des ressources
+- **VPN (Tailscale)**  
+  Accès distant sécurisé aux ressources internes
 
-📱 Client mobile
-Accès réseau uniquement via VPN
+- **NAS (TrueNAS)**  
+  Stockage et partage de fichiers
 
-Simulation d’un utilisateur distant
+- **Supervision (Zabbix)**  
+  Surveillance de l’infrastructure et alertes
 
-📡 Plan d’adressage IP
-Réseau interne : 192.168.247.0/24
-Équipement
-Adresse IP
-pfSense (passerelle)
-192.168.247.5
-TrueNAS
-192.168.247.6
-Contrôleur de domaine / DNS
-192.168.247.10
-Serveur de backup
-192.168.247.11
-Serveur Zabbix
-192.168.247.12
-Autres machines
-DHCP
+- **Sauvegardes (rsync)**  
+  Protection des données et reprise après incident
 
-Les équipements critiques utilisent des IP statiques, les postes clients sont configurés en DHCP.
+- **Virtualisation (Proxmox)**  
+  Hébergement et gestion des machines virtuelles
 
-🛠️ Services réseau
-DHCP
- Attribution automatique des adresses IP aux clients.
+---
 
-DNS
- Résolution de noms centralisée via le contrôleur de domaine.
+## 🚀 Cas d’usage
+- Simulation d’une infrastructure PME
+- Tests de sécurité réseau
+- Apprentissage Active Directory
+- Mise en place de VPN sécurisé
+- Supervision et gestion d’incidents
+- Sauvegarde et restauration de données
 
-Active Directory
- Gestion des utilisateurs, groupes, machines et stratégies de sécurité.
+---
 
-VPN (Tailscale)
- Accès distant sécurisé aux ressources internes.
+## 🧩 Dépendances & technologies
+- pfSense
+- Windows Server 2022
+- Proxmox VE
+- TrueNAS
+- Zabbix
+- Tailscale
+- rsync
 
-NAS
- Stockage et partage de fichiers.
+---
 
-Supervision (Zabbix)
- Surveillance de l’infrastructure et alertes.
+## ⚠️ Dépannage (Troubleshooting)
+- Vérifier les règles NAT et firewall sur pfSense
+- Contrôler la résolution DNS via le contrôleur de domaine
+- Vérifier la connectivité VPN (Tailscale)
+- Consulter les alertes Zabbix en cas de panne
+- Tester régulièrement les restaurations de sauvegarde
 
-Sauvegardes (rsync)
- Protection des données et reprise après incident.
+---
 
-Virtualisation (Proxmox)
- Hébergement et gestion des machines virtuelles.
+## 👤 Contributeur(s)
+- Projet personnel / Lab de formation
+
+---
+
+## 📄 Licence
+Projet à but pédagogique et personnel.  
+Licence à définir selon le contexte d’utilisation.
+
+---
+
+## 📚 Documentation
+Ce lab peut servir de base pour :
+- Documentation technique
+- Présentation de compétences (portfolio IT / cybersécurité)
+- Préparation à des environnements professionnels
