@@ -147,14 +147,6 @@ L’infrastructure est organisée autour de **trois zones réseau principales** 
 - Tailscale
 - rsync
 
----
-
-## ⚠️ Dépannage (Troubleshooting)
-- Vérifier les règles NAT et firewall sur pfSense
-- Contrôler la résolution DNS via le contrôleur de domaine
-- Vérifier la connectivité VPN (Tailscale)
-- Consulter les alertes Zabbix en cas de panne
-- Tester régulièrement les restaurations de sauvegarde
 
 ---
 
@@ -166,11 +158,3 @@ L’infrastructure est organisée autour de **trois zones réseau principales** 
 ## 📄 Licence
 Projet à but pédagogique et personnel.  
 Licence à définir selon le contexte d’utilisation.
-
----
-
-## 📚 Documentation
-Ce lab peut servir de base pour :
-- Documentation technique
-- Présentation de compétences (portfolio IT / cybersécurité)
-- Préparation à des environnements professionnels
